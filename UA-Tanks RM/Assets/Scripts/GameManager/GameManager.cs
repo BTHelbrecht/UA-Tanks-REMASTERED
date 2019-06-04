@@ -8,12 +8,12 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     // arrays
-    
+
 
     // accesser
-    public TankData tankData;
-    public UserInput userInput;
-    public MoveDrive moveDrive;
+    public GameObject g_tankPrefab;
+    public List<UserInput> g_playerNumber;
+    public List<AIController> g_enemy;
 
 
     // AWAKE >>> dedicated to singletion instance
@@ -34,4 +34,15 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }//E
     }//E
+
+    private void Start()
+    {
+        GameObject newTank = Instantiate(g_tankPrefab) as GameObject;
+        TankData newData = newTank.GetComponent<TankData>();
+        g_playerNumber[0].u_tankData = newData;
+
+        newTank = Instantiate(g_tankPrefab) as GameObject;
+        newData = newTank.GetComponent<TankData>();
+        g_enemy[0].a_tankData = newData;
+    }
 }//E

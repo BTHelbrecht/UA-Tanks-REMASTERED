@@ -16,11 +16,18 @@ public class TankData : MonoBehaviour
     public float t_RotateSpeed;
     public float t_Health;
     public Rigidbody t_Rigidbody;
+    public Transform t_Transform;
+    public MoveDrive t_MoveDrive;
+    public UserInput t_UserInput;
+
 
     //awake
     void Awake()
     {
         t_Rigidbody = GetComponent<Rigidbody>();
+        t_Transform = GetComponent<Transform>();
+        t_MoveDrive = GetComponent<MoveDrive>();
+        t_UserInput = GetComponent<UserInput>();
     }
 
     // Update is called once per frame
