@@ -5,6 +5,11 @@ using UnityEngine;
 public class MoveDrive : MonoBehaviour
 {
     public TankData m_tankData;
+    float m_MoveForwardSpeed;
+    float m_MoveReverseSpeed;
+    float m_RotateSpeed;
+    Transform m_Transform;
+    Rigidbody m_Rigidibody;
 
     private void Start()
     {
@@ -14,9 +19,6 @@ public class MoveDrive : MonoBehaviour
     // Move FORWARD
     public void Forward()
     {
-        float m_MoveForwardSpeed;
-        Rigidbody m_Rigidibody;
-
         m_MoveForwardSpeed = m_tankData.t_MoveForwardSpeed;
         m_Rigidibody = m_tankData.t_Rigidbody;
 
@@ -29,9 +31,6 @@ public class MoveDrive : MonoBehaviour
     // Move REVERSE
     public void Reverse()
     {
-        float m_MoveReverseSpeed;
-        Rigidbody m_Rigidibody;
-
         m_MoveReverseSpeed = m_tankData.t_MoveReverseSpeed;
         m_Rigidibody = m_tankData.t_Rigidbody;
 
@@ -44,9 +43,6 @@ public class MoveDrive : MonoBehaviour
     // Rotate TURN
     public void Turn(float m_RotateX)
     {
-        float m_RotateSpeed;
-        Rigidbody m_Rigidibody;
-
         m_RotateSpeed = m_tankData.t_RotateSpeed;
         m_Rigidibody = m_tankData.t_Rigidbody;
 
@@ -56,5 +52,27 @@ public class MoveDrive : MonoBehaviour
         Quaternion qm_Rotation = Quaternion.Euler(0f, m_turn, 0f);
 
         m_Rigidibody.MoveRotation(m_Rigidibody.rotation * qm_Rotation);
+    }
+
+    public bool RotateTorward(Transform m_Target)
+    {
+        Vector3 m_AngleToTarget;
+
+        m_RotateSpeed = m_tankData.t_RotateSpeed;
+        m_Transform = m_tankData.t_Transform;
+
+        
+        m_AngleToTarget = m_Target.position - m_Transform.position;
+
+        
+        Quaternion targetRotation = Quaternion.LookRotation(m_AngleToTarget);
+        if (targetRotation == m_Transform.rotation)
+        {
+            return false;
+        }
+        m_Transform.rotation = Quaternion.RotateTowards(m_Transform.rotation, targetRotation, m_RotateSpeed * Time.deltaTime);
+
+        return true;
+
     }
 }

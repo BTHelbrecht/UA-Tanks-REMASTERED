@@ -12,10 +12,10 @@ public class GameManager : MonoBehaviour
 
     // accesser
     public GameObject g_TankPrefab;
-    public GameObject g_WayPointPrefab;
+    //public GameObject g_WayPointPrefab;
     public List<UserInput> g_PlayerNumber;
     public List<EnemyInput> g_Enemy;
-    public List<Transform> g_WayPoint;
+    //public List<Transform> g_WayPoint;
 
 
     // AWAKE >>> dedicated to singletion instance
@@ -39,9 +39,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        /*
         GameObject newWayPoint = Instantiate(g_WayPointPrefab) as GameObject;
         Transform newPoint = newWayPoint.GetComponent<Transform>();
+        newPoint.position = new Vector3();
         g_WayPoint[0] = newPoint;
+        */
 
         GameObject newTank = Instantiate(g_TankPrefab) as GameObject;
         TankData newData = newTank.GetComponent<TankData>();

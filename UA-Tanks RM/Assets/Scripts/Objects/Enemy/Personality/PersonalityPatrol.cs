@@ -5,22 +5,38 @@ using UnityEngine;
 public class PersonalityPatrol : EnemyInput
 {
     // list of Waypoints spwaned by GAME MANAGER
-    public List<GameManager> p_WayPoints;
-    public bool p_Player;
-    public int p_WayPointNumber;
-    public float p_DistanceToWayPoint;
-    public bool p_Chase;
+    
+
+
+    public void Start()
+    {
+        //TODO: get waypoints from game manger
+    }
 
     private void Update()
     {
-        if(p_Chase == !p_Player)
+        if (p_CurrentDirective == p_Directive.PatrolRoutine)
         {
-            // randomized way point select
-            // rotate and move to it
+            PatrolModeRoutine();
+
+            //isBlocked(); 
+
+            if(p_CurrentAwareness == p_Awarness.SeeObsturcion)
+            {
+                AvoidMode();
+            }
+            else
+            {
+                RotateMode();
+                MoveMode();
+            }
+
+           
+
         }
-        if(p_Chase == p_Player)
+        else if(p_CurrentDirective == p_Directive.Chase)
         {
-            // Chase player
+            // move to player
         }
     }
 
